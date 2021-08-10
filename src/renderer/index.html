@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">-->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;200;300;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <!-- <link href="https://bootswatch.com/5/darkly/bootstrap.css" rel="stylesheet" /> -->
+
+    <title>Start Page - AWS Console</title>
+    <style>
+      .container {
+        margin: 0 auto;
+        width: 900px;
+      }
+
+      .content {
+        margin-top: 10vh;
+
+      }
+
+      .aws-console input {
+        padding: 4px 10px;
+        color: #16191f;
+        width: 100%;
+        background-color: #fff;
+        border-radius: 2px;
+        border: 1px solid #aab7b8;
+        height: 30px;
+        font-size: 14px;
+        line-height: 20px;
+        transition: none;
+      }
+
+      .aws-console input:focus {
+        outline: 2px dotted transparent;
+        border: 1px solid #00a1c9;
+        border-radius: 2px;
+        box-shadow: 0 0 0 1px #00a1c9;
+      }
+
+
+      body {
+        background: whitesmoke;
+        font-family: Lato, sans-serif;
+      }
+
+      .btn.disabled, .btn.btn-primary.btn.disabled {
+        background: #ffffff;
+        border-color: #d5dbdb;
+        color: #aab7b8;
+        text-decoration: none;
+        pointer-events: none;
+        cursor: auto;
+      }
+
+      .btn.btn-primary {
+        background: #ec7211;
+        color: #fff;
+        border-color: #ec7211;
+        border-radius: 2px;
+        position: relative;
+        text-decoration: none;
+      }
+
+      .btn.btn-primary:hover {
+        background: #eb5f07;
+        border-color: transparent;
+      }
+
+      .btn {
+        transition: none;
+        border-radius: 2px;
+        font-weight: 700;
+        letter-spacing: .25px;
+        display: inline-block;
+        cursor: pointer;
+        text-align: left;
+        margin: 0 8px 0 0;
+        font-size: 14px;
+        line-height: 18px;
+
+        background: #ffffff;
+        color: #545b64;
+        border-color: #545b64;
+        text-decoration: none;
+      }
+      .card {
+        border-radius: 0;
+        margin-bottom: 1.3rem;
+        box-shadow: 0rem 0.1rem 0.5rem 0rem rgb(0 0 0 / 20%);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        cursor: pointer;
+        transition: 0.25s transform;
+        box-sizing: border-box;
+        background-color: #fff;
+        position: relative;
+        flex: none;
+        border: 2px solid transparent;
+      }
+      .top-bar {
+        display: block;
+        background: #232f3d;
+        font-size: 14px;
+        color: #FFF;
+        height: 45px;
+        width: 100%;
+        font-size: 22px;
+        color: #d5dbdb;
+        line-height: 45px;
+      }
+    </style>
+  </head>
+  <body class="aws-console">
+    <div class="top-bar">
+      <div class="container d-flex">
+        <div>Amazon Web Services Console</div>
+      </div>
+    </div>
+    <div class="content container">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">AWS SSO Basic configuration</h5>
+          <div class="card-text">
+            <div>
+              <label for="awsSsoBaseUrl" class="form-label">AWS SSO BaseUrl</label>
+            </div>
+            <div class="row">
+              <div class="col">
+                <input type="email" class="form-control" id="awsSsoBaseUrl">
+              </div>
+              <div class="col-auto">
+                <div class="btn btn-primary" id="login">Log in</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-warning" role="alert" id="login-alert">
+        You must enter a valid AWS applications URL and login first!
+      </div>
+      <div class="d-flex">
+        <div class="col"></div>
+        <div class="btn btn-primary disabled" id="openEnvironment">Open new Environment Window</div>
+      </div>
+    </div>
+  </body>
+</html>
