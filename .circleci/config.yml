@@ -1,0 +1,19 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@0.2.1
+  aws-cli: circleci/aws-cli@1.0.0
+  node: circleci/node@2.0.1
+
+jobs:
+  checkout:
+    docker:
+      - image: node:14
+    steps:
+      - checkout
+
+
+workflows:
+  main:
+    jobs:
+      - checkout
