@@ -3,14 +3,18 @@ version: 2.1
 orbs:
   python: circleci/python@0.2.1
   aws-cli: circleci/aws-cli@1.0.0
-  node: circleci/node@2.0.1
+  node: circleci/node@4.7.0
 
 jobs:
   checkout:
-    docker:
-      - image: node:14
+    macos:
+      xcode: 11.3.0 # indicate our selected version of Xcode
     steps:
       - checkout
+      - node/install:
+          install-yarn: true
+      - run: yarn
+      - run: yarn dist
 
 
 workflows:
