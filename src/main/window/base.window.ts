@@ -1,4 +1,4 @@
-import { BrowserWindow, ipcMain, Session, BrowserWindowConstructorOptions } from "electron";
+import { BrowserWindow, ipcMain, Session, BrowserWindowConstructorOptions, Cookie } from "electron";
 
 export class BaseWindow {
   //#region Properties
@@ -19,9 +19,25 @@ export class BaseWindow {
     private readonly _initialTitle?: string) {}
   //#endregion
 
+
+  //#region Public Static Methods
+  public static getCookieUrl(cookie: Cookie) {
+    let { secure, domain } = cookie;
+    domain = domain as string;
+
+    const scheme = secure ? "https" : "http";
+    const host = domain[0] === "." ? domain.substr(1) : domain;
+    const url = scheme + "://" + host;
+    return url;
+  }
+  //#endregion
+
   //#region Public Methods
   public async open(): Promise<void> {
-    this._browserWindow = new BrowserWindow(this.createBrowserWindowOptions());
+    this._browserWindow = new BrowserWindow(await this.createBrowserWindowOptions());
+
+    this._session = this._browserWindow.webContents.session;
+
     this._browserWindow.maximize();
 
     const ipcMainBindingAware = (this as Object).constructor as any;
@@ -98,7 +114,7 @@ export class BaseWindow {
   //#endregion
 
   //#region Private Methods
-  protected createBrowserWindowOptions(): BrowserWindowConstructorOptions {
+  protected async createBrowserWindowOptions(): Promise<BrowserWindowConstructorOptions> {
     return {
       width: 800,
       height: 600,

@@ -12,27 +12,17 @@ export class ScopedPrivateWindow extends BaseWindow {
   //#endregion
 
   //#region Private Methods
-  protected createBrowserWindowOptions(): BrowserViewConstructorOptions {
+  protected async createBrowserWindowOptions(): Promise<BrowserViewConstructorOptions> {
     const privateSession = session.fromPartition(`${new Date().getTime()}`);
     for (const cookie of this._cookies) {
-      const url = this.getCookieUrl(cookie);
+      const url = BaseWindow.getCookieUrl(cookie);
       privateSession.cookies.set({ ...cookie, url });
     }
 
-    const privateWindowOptions = super.createBrowserWindowOptions();
+    const privateWindowOptions = await super.createBrowserWindowOptions();
     privateWindowOptions.webPreferences.session = privateSession;
 
     return privateWindowOptions;
-  }
-
-  private getCookieUrl(cookie: Cookie) {
-    let { secure, domain } = cookie;
-    domain = domain as string;
-
-    const scheme = secure ? "https" : "http";
-    const host = domain[0] === "." ? domain.substr(1) : domain;
-    const url = scheme + "://" + host;
-    return url;
   }
   //#endregion
 }

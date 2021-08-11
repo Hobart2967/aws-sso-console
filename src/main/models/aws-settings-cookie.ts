@@ -1,0 +1,1 @@
+export const AWS_SETTINGS_COOKIE = 'noflush_awscnm';
