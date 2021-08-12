@@ -31,4 +31,6 @@ steps:
 - script: |
     yarn
   displayName: 'Install NPM Packages'
+- script: |
+    yarn dist -m
   
