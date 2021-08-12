@@ -16,6 +16,9 @@
       "template": "src/renderer/index.html"
     }
   },
+  "dependencies": {
+    "source-map-support": "0.5.19"
+  },
   "devDependencies": {
     "copy-webpack-plugin": "^9.0.1",
     "electron": "^13.1.8",
