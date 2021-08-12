@@ -30,5 +30,5 @@ steps:
   displayName: Cache Yarn packages
 - script: |
     yarn
-    yarn dist -m
-  displayName: 'yarn install and build'
+  displayName: 'Install NPM Packages'
+  
