@@ -36,19 +36,19 @@ steps:
   displayName: Build Installation Packages for all platforms
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(agent.builddirectory)/dist/'
+    SourceFolder: '$(Build.SourcesDirectory)/dist/'
     Contents: '*.dmg'
     TargetFolder: '$(build.artifactstagingdirectory)'
   displayName: Copy Mac Setup files
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(agent.builddirectory)/dist/'
+    SourceFolder: '$(Build.SourcesDirectory)/dist/'
     Contents: '*.exe'
     TargetFolder: '$(build.artifactstagingdirectory)'
   displayName: Copy Windows Setup Files
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(agent.builddirectory)/dist/'
+    SourceFolder: '$(Build.SourcesDirectory)/dist/'
     Contents: '*.snap'
     TargetFolder: '$(build.artifactstagingdirectory)'
   displayName: Copy Linux Snap Package
