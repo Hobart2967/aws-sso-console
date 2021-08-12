@@ -35,17 +35,17 @@ steps:
     GH_TOKEN=$(GH_TOKEN) yarn dist -m -w -l
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(agent.builddirectory)/'
+    SourceFolder: '$(agent.builddirectory)/dist/'
     Contents: '*.dmg'
     TargetFolder: '$(build.artifactstagingdirectory)'
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(agent.builddirectory)/'
+    SourceFolder: '$(agent.builddirectory)/dist/'
     Contents: '*.exe'
     TargetFolder: '$(build.artifactstagingdirectory)'
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(agent.builddirectory)/'
+    SourceFolder: '$(agent.builddirectory)/dist/'
     Contents: '*.snap'
     TargetFolder: '$(build.artifactstagingdirectory)'
 - task: GitHubRelease@1
