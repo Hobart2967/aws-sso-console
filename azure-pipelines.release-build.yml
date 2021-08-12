@@ -43,3 +43,11 @@ steps:
     SourceFolder: '$(agent.builddirectory)/'
     Contents: '*.dmg'
     TargetFolder: '$(build.artifactstagingdirectory)'
+- task: GitHubRelease@1
+  inputs:
+    gitHubConnection: 'github.com_Hobart2967'
+    repositoryName: '$(Build.Repository.Name)'
+    action: 'edit'
+    target: '$(Build.SourceVersion)'
+    tag: '$(releaseVersion)'
+    addChangeLog: false
