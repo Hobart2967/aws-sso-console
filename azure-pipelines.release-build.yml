@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/xcode
 
 trigger:
-- main
+- refs/tags/*
 
 variables:
   YARN_CACHE_FOLDER: $(Pipeline.Workspace)/.yarn
@@ -15,7 +15,7 @@ pool:
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '14.x'
+    versionSpec: '14.17.5'
   displayName: 'Install Node.js'
 - task: YarnInstaller@3
   inputs:
@@ -30,6 +30,29 @@ steps:
   displayName: Cache Yarn packages
 - script: |
     yarn
-    yarn dist -m
-  displayName: 'yarn install and build'
-#$(Build.ArtifactStagingDirectory)/*
+  displayName: 'Install NPM Packages'
+- script: |
+    GH_TOKEN=$(GH_TOKEN) yarn dist -m -w -l
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(agent.builddirectory)/'
+    Contents: '*.dmg'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(agent.builddirectory)/'
+    Contents: '*.exe'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(agent.builddirectory)/'
+    Contents: '*.snap'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+- task: GitHubRelease@1
+  inputs:
+    gitHubConnection: 'github.com_Hobart2967'
+    repositoryName: '$(Build.Repository.Name)'
+    action: 'edit'
+    target: '$(Build.SourceVersion)'
+    tag: '$(Build.SourceBranchName)'
+    addChangeLog: false
