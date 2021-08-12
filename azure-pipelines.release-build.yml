@@ -15,7 +15,7 @@ pool:
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '14.x'
+    versionSpec: '14.17.5'
   displayName: 'Install Node.js'
 - task: YarnInstaller@3
   inputs:
@@ -30,6 +30,16 @@ steps:
   displayName: Cache Yarn packages
 - script: |
     yarn
-    yarn dist -m
-  displayName: 'yarn install and build'
-#$(Build.ArtifactStagingDirectory)/*
+  displayName: 'Install NPM Packages'
+- script: |
+    GH_TOKEN=$(GH_TOKEN) yarn dist -m -w -l
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(agent.builddirectory)/'
+    Contents: '*.dmg'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(agent.builddirectory)/'
+    Contents: '*.dmg'
+    TargetFolder: '$(build.artifactstagingdirectory)'
