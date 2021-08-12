@@ -21,4 +21,4 @@ steps:
 - script: |
     yarn
     yarn dist -m
-  displayName: 'npm install and build'
+  displayName: 'yarn install and build'
