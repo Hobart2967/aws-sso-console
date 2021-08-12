@@ -10,11 +10,15 @@ pool:
   vmImage: 'macos-latest'
 
 steps:
-- task: Xcode@5
+- task: NodeTool@0
   inputs:
-    actions: 'build'
-    scheme: ''
-    sdk: 'iphoneos'
-    configuration: 'Release'
-    xcWorkspacePath: '**/*.xcodeproj/project.xcworkspace'
-    xcodeVersion: 'default' # Options: 8, 9, 10, 11, 12, default, specifyPath
+    versionSpec: '14.x'
+  displayName: 'Install Node.js'
+- task: YarnInstaller@3
+  inputs:
+    versionSpec: '1.x'
+    checkLatest: true
+- script: |
+    yarn
+    yarn dist -m
+  displayName: 'npm install and build'
