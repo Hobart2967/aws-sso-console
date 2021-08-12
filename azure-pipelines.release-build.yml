@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/xcode
 
 trigger:
-- main
+- refs/tags/*
 
 variables:
   YARN_CACHE_FOLDER: $(Pipeline.Workspace)/.yarn
@@ -41,7 +41,12 @@ steps:
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(agent.builddirectory)/'
-    Contents: '*.dmg'
+    Contents: '*.exe'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(agent.builddirectory)/'
+    Contents: '*.snap'
     TargetFolder: '$(build.artifactstagingdirectory)'
 - task: GitHubRelease@1
   inputs:
@@ -49,5 +54,5 @@ steps:
     repositoryName: '$(Build.Repository.Name)'
     action: 'edit'
     target: '$(Build.SourceVersion)'
-    tag: '$(releaseVersion)'
+    tag: '$(Build.SourceBranchName)'
     addChangeLog: false
