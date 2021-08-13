@@ -33,4 +33,4 @@ steps:
     yarn
   displayName: 'Install NPM Packages'
 - script: |
-    GH_TOKEN=$(GH_TOKEN) yarn dist -m -w -l
+    GH_TOKEN=$(GH_TOKEN) yarn compile

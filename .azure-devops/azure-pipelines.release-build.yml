@@ -32,22 +32,30 @@ steps:
     yarn
   displayName: 'Install NPM Packages'
 - script: |
-    GH_TOKEN=$(GH_TOKEN) yarn compile
+    GH_TOKEN=$(GH_TOKEN) yarn dist -m -w -l
+  displayName: Build Installation Packages for all platforms
+- script: |
+    ls
+    echo "$BUILD_SOURCEDIRECTORY"
+    echo "$BUILD_ARTIFACTSTAGINGDIRECTORY"
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(agent.builddirectory)/'
+    SourceFolder: '$(Build.SourcesDirectory)/dist/'
     Contents: '*.dmg'
     TargetFolder: '$(build.artifactstagingdirectory)'
+  displayName: Copy Mac Setup files
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(agent.builddirectory)/'
+    SourceFolder: '$(Build.SourcesDirectory)/dist/'
     Contents: '*.exe'
     TargetFolder: '$(build.artifactstagingdirectory)'
+  displayName: Copy Windows Setup Files
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(agent.builddirectory)/'
+    SourceFolder: '$(Build.SourcesDirectory)/dist/'
     Contents: '*.snap'
     TargetFolder: '$(build.artifactstagingdirectory)'
+  displayName: Copy Linux Snap Package
 - task: GitHubRelease@1
   inputs:
     gitHubConnection: 'github.com_Hobart2967'
@@ -56,3 +64,4 @@ steps:
     target: '$(Build.SourceVersion)'
     tag: '$(Build.SourceBranchName)'
     addChangeLog: false
+  displayName: Update Github Release
