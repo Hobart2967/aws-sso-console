@@ -1,15 +1,18 @@
 const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-  target: "electron-main",
-  entry: {
-    main: "./src/main/index.js"
+  module: {
+    rules: [{
+      test: /\.png$/,
+      use: 'raw-loader'
+    }],
+
   },
   plugins: [
     new CopyPlugin({
       patterns: [
-        { from: "./src/main/index.html", to: "./index.html" },
+        { from: "./src/renderer/assets", to: "./assets/" },
       ],
     })
   ]
-};
+}

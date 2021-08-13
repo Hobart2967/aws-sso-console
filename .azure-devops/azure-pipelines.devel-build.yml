@@ -5,6 +5,7 @@
 
 trigger:
 - main
+- devel
 
 variables:
   YARN_CACHE_FOLDER: $(Pipeline.Workspace)/.yarn
@@ -32,5 +33,4 @@ steps:
     yarn
   displayName: 'Install NPM Packages'
 - script: |
-    GH_TOKEN=$(GH_TOKEN) yarn dist -m -w -l
-  
+    GH_TOKEN=$(GH_TOKEN) yarn compile

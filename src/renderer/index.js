@@ -20,6 +20,10 @@ const { ipcRenderer } = require('electron');
     ipcRenderer.send('openAwsEnvironment', baseUrl)
   }
 
+  function applyPersistedCookies(cookies) {
+    ipcRenderer.send('applyPersistedCookies', cookies)
+  }
+
   function chooseFavoriteServices(baseUrl) {
     ipcRenderer.send('chooseFavoriteServices', baseUrl)
   }
@@ -60,8 +64,18 @@ const { ipcRenderer } = require('electron');
     favoritesList = favoritesList || [];
   }
 
+  function loadPersistedCookies() {
+    const persistedCookies = localStorage.getItem('loginCookies');
+    if (!persistedCookies) {
+      return;
+    }
+
+    applyPersistedCookies(JSON.parse(persistedCookies));
+  }
+
   function main() {
     loadPersistedFavoritesList(updateFavoritesList);
+    loadPersistedCookies();
 
     const baseUrl = document.getElementById('awsSsoBaseUrl');
     baseUrl.value = localStorage.getItem('awsSsoBaseUrl');
@@ -96,6 +110,10 @@ const { ipcRenderer } = require('electron');
       alert.remove();
     });
 
+
+    ipcRenderer.on('saveCookies', (event, cookies) => {
+      localStorage.setItem('loginCookies', JSON.stringify(cookies.map(x => ({ ...x }))));
+    })
   }
 
   main();

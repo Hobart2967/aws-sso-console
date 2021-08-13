@@ -46,6 +46,7 @@ export class StartPageWindow extends BaseWindow {
     }
 
     this.browserWindow.webContents.send('login-succeeded', true);
+    this.browserWindow.webContents.send('saveCookies', this._identityProviderSession.cookies);
   }
 
   @ipcMainTarget()
@@ -62,6 +63,13 @@ export class StartPageWindow extends BaseWindow {
   public async loadFavoriteServices(favoriteServices: string[]): Promise<void> {
     console.log(`Applied favorites for next environment opened: ${favoriteServices.join(', ')}`);
     this._awsConsoleConfiguration.favoriteServices = favoriteServices;
+  }
+
+  @ipcMainTarget()
+  public async applyPersistedCookies(cookies: Cookie[]): Promise<void> {
+    console.log(`Applied ${cookies.length} cookies from last session`);
+    this._identityProviderSession.applyLastCookieSet(cookies);
+    this.browserWindow.webContents.send('login-succeeded', true);
   }
 
   @ipcMainTarget()

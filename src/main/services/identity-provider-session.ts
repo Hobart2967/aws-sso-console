@@ -35,10 +35,16 @@ export class IdentityProviderSession {
 
     return await this._extractCookies(loginWindow.browserWindow);
   }
+
+  public applyLastCookieSet(cookies: Cookie[]) {
+    this._cookies.splice(0, this._cookies.length);
+
+    this._cookies.push(...cookies);
+  }
   //#endregion
 
   //#region Private Methods
-  async _extractCookies(window: BrowserWindow) {
+  private async _extractCookies(window: BrowserWindow) {
     const cookies = await window.webContents.session.cookies.get({});
     const idpCookies =  cookies.filter(x => this._idpChecks.some(regex => regex.test(x.domain || '')));
     this._cookies.push(...idpCookies);
