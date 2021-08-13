@@ -13,14 +13,15 @@
   },
   "electronWebpack": {
     "renderer": {
-      "template": "src/renderer/index.html"
+      "template": "src/renderer/index.html",
+      "webpackConfig": "webpack.renderer.additions.js"
     }
   },
   "dependencies": {
     "source-map-support": "0.5.19"
   },
   "devDependencies": {
-    "copy-webpack-plugin": "^9.0.1",
+    "copy-webpack-plugin": "6.3.2",
     "electron": "^13.1.8",
     "electron-builder": "^22.10.5",
     "electron-webpack": "^2.8.2",
