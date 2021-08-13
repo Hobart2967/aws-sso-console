@@ -7,4 +7,4 @@ Wrapper application for opening multiple AWS SSO Console instances without loosi
 
 ## Download
 
-[Download the latest release now!](github.com/trustedshops/tswp-core-plugins/releases/latest)
+[Download the latest release now!](github.com/Hobart2967/aws-sso-console/releases/latest)
