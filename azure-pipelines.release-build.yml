@@ -34,6 +34,10 @@ steps:
 - script: |
     GH_TOKEN=$(GH_TOKEN) yarn dist -m -w -l
   displayName: Build Installation Packages for all platforms
+- script: |
+    ls
+    echo "$BUILD_SOURCEDIRECTORY"
+    echo "$BUILD_ARTIFACTSTAGINGDIRECTORY"
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(Build.SourcesDirectory)/dist/'
