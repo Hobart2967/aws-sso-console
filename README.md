@@ -2,7 +2,6 @@
 
 Wrapper application for opening multiple AWS SSO Console instances without loosing the session when switching the AWS Account.
 
-
 ## Features
 - Supports OS:
   - Mac
